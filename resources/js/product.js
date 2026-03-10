@@ -26,7 +26,7 @@ $(document).ready(function () {
                     <td class="p-3 align-middle" rowspan="1">
                         <input class="form-control" name="products[${currIdx}][name]" placeholder="Ketik nama produk" required>
                     </td>
-                    <td class="p-3">
+                    <td class="p-3 align-middle">
                         <input class="form-control" name="products[${currIdx}][descriptions][0][text]" placeholder="Ketik deskripsi produk" required>
                     </td>
                     <td class="p-3 text-center">
@@ -38,9 +38,9 @@ $(document).ready(function () {
                             </label>
                             
                             <!-- Image Preview UI (Hidden initially) -->
-                            <div class="image-preview d-none position-relative mx-auto w-100 h-100">
+                            <div class="image-preview d-none position-relative d-inline-block mx-auto">
                                 <img class="object-fit-cover rounded border bg-white p-1" style="width: 5rem; height: 5rem;">
-                                <button type="button" class="btn btn-light text-danger position-absolute p-1 rounded-circle shadow border delete-img-btn" style="bottom: -8px; right: 2rem; line-height: 1;" title="Hapus Gambar">
+                                <button type="button" class="btn btn-light text-danger position-absolute p-1 rounded-circle shadow border delete-img-btn" style="bottom: -8px; right: -8px; line-height: 1;" title="Hapus Gambar">
                                     <svg style="width: 1rem; height: 1rem;" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
                                 </button>
                             </div>
@@ -98,7 +98,7 @@ $(document).ready(function () {
 
         const newRowHtml = `
             <tr class="desc-row">
-                <td class="p-3">
+                <td class="p-3 align-middle">
                     <input class="form-control" name="products[${prodIdx}][descriptions][${descCount}][text]" placeholder="Ketik deskripsi produk" required>
                 </td>
                 <td class="p-3 text-center">
@@ -110,9 +110,9 @@ $(document).ready(function () {
                         </label>
                         
                         <!-- Image Preview UI -->
-                        <div class="image-preview d-none position-relative mx-auto w-100 h-100">
+                        <div class="image-preview d-none position-relative d-inline-block mx-auto">
                             <img class="object-fit-cover rounded border bg-white p-1" style="width: 5rem; height: 5rem;">
-                            <button type="button" class="btn btn-light text-danger position-absolute p-1 rounded-circle shadow border delete-img-btn" style="bottom: -8px; right: 2rem; line-height: 1;" title="Hapus Gambar">
+                            <button type="button" class="btn btn-light text-danger position-absolute p-1 rounded-circle shadow border delete-img-btn" style="bottom: -8px; right: -8px; line-height: 1;" title="Hapus Gambar">
                                 <svg style="width: 1rem; height: 1rem;" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
                             </button>
                         </div>
@@ -195,7 +195,7 @@ $(document).ready(function () {
             reader.onload = function (e) {
                 img.attr('src', e.target.result);
                 label.addClass('d-none');
-                preview.removeClass('d-none').addClass('d-flex');
+                preview.removeClass('d-none');
             }
             reader.readAsDataURL(file);
         }
@@ -218,7 +218,7 @@ $(document).ready(function () {
         if (imagePreviewToHide) {
             const label = imagePreviewToHide.find('.image-upload-label');
             const preview = imagePreviewToHide.find('.image-preview');
-            preview.addClass('d-none').removeClass('d-flex');
+            preview.addClass('d-none');
             label.removeClass('d-none');
         }
 

@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenMart Product</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        .form-control:focus { outline: none; box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25); border-color: #198754; }
+        .form-control:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+            border-color: #198754;
+        }
     </style>
 </head>
+
 <body class="bg-light p-3 p-md-5 text-dark" style="font-family: system-ui, -apple-system, sans-serif;">
 
     <div class="container bg-white shadow rounded-3 border overflow-hidden p-0" style="max-width: 80rem;">
-        
+
         <div class="bg-success p-4 text-white d-flex justify-content-between align-items-center">
             <h1 class="h4 mb-0 fw-bold">GreenMart Product Entry</h1>
-            <svg class="opacity-75" style="width: 2rem; height: 2rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            <svg class="opacity-75" style="width: 2rem; height: 2rem;" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+            </svg>
         </div>
 
         <form method="POST" action="/products" enctype="multipart/form-data" class="p-4 p-md-5">
             @csrf
-            
+
             @if(session('success'))
                 <div class="alert alert-success d-flex align-items-center mb-4" role="alert">
-                    <svg class="me-2" style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg class="me-2" style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
                     <div>{{ session('success') }}</div>
                 </div>
             @endif
-            
+
             @if ($errors->any())
                 <div class="alert alert-danger mb-4" role="alert">
                     <ul class="mb-0">
@@ -50,53 +64,11 @@
                             <th class="p-3 bg-light border-0" style="width: 4rem;"></th>
                         </tr>
                     </thead>
-                    
+
                     @if(isset($products) && $products->isNotEmpty())
                         @foreach ($products as $product)
                             <tbody class="product-group existing-product">
-                                @if ($product->descriptions->isNotEmpty())
-                                    @foreach ($product->descriptions as $index => $desc)
-                                        <tr class="desc-row">
-                                            @if ($index === 0)
-                                                <td class="p-3 text-center product-number align-middle fw-bold text-secondary fs-5" rowspan="{{ $product->descriptions->count() }}"></td>
-                                                <td class="p-3 align-middle text-dark fw-bold" rowspan="{{ $product->descriptions->count() }}">{{ $product->name }}</td>
-                                            @endif
-                                            
-                                            <td class="p-3 text-secondary align-middle">{{ $desc->description }}</td>
-                                            <td class="p-3 text-center align-middle">
-                                                @if ($desc->image)
-                                                    <img src="{{ asset('storage/' . $desc->image) }}" class="object-fit-cover mx-auto rounded shadow-sm border bg-white p-1" style="width: 5rem; height: 5rem;">
-                                                @else
-                                                    <span class="text-secondary opacity-50 small fst-italic">-</span>
-                                                @endif
-                                            </td>
-                                            <td class="p-3 text-center align-middle">
-                                                <span class="text-secondary opacity-25">-</span>
-                                            </td>
-                                            
-                                            @if ($index === 0)
-                                                <td class="p-3 align-top text-center border-0" rowspan="{{ $product->descriptions->count() }}">
-                                                    <span class="text-secondary opacity-25 d-inline-block mt-2" title="Produk statis (Database)">
-                                                        <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                                                    </span>
-                                                </td>
-                                            @endif
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr class="desc-row">
-                                        <td class="p-3 text-center product-number align-middle fw-bold text-secondary fs-5" rowspan="1"></td>
-                                        <td class="p-3 align-middle text-dark fw-bold" rowspan="1">{{ $product->name }}</td>
-                                        <td class="p-3 text-secondary opacity-50 fst-italic align-middle">-</td>
-                                        <td class="p-3 text-center text-secondary opacity-50 fst-italic align-middle">-</td>
-                                        <td class="p-3 text-center align-middle"><span class="text-secondary opacity-25">-</span></td>
-                                        <td class="p-3 align-middle text-center border-0" rowspan="1">
-                                            <span class="text-secondary opacity-25" title="Produk statis (Database)">
-                                                <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                @endif
+                                <x-product-row :product="$product" />
                             </tbody>
                         @endforeach
                     @endif
@@ -104,14 +76,20 @@
             </div>
 
             <div class="d-flex align-items-center justify-content-between pt-2">
-                <button type="button" id="addProductBtn" class="btn btn-outline-success fw-bold d-flex align-items-center gap-2 px-4 py-2">
-                    <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                <button type="button" id="addProductBtn"
+                    class="btn btn-outline-success fw-bold d-flex align-items-center gap-2 px-4 py-2">
+                    <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
                     Tambah Produk
                 </button>
 
-                <button type="submit" class="btn btn-primary fw-bold text-white d-flex align-items-center gap-2 px-4 py-2">
+                <button type="submit"
+                    class="btn btn-primary fw-bold text-white d-flex align-items-center gap-2 px-4 py-2">
                     Submit Data
-                    <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
                 </button>
             </div>
         </form>
@@ -122,12 +100,17 @@
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content border-0 shadow-lg" style="border-radius: 1rem;">
                 <div class="modal-body p-4 text-center">
-                    <div class="bg-danger bg-opacity-10 text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 4rem; height: 4rem;">
-                        <svg style="width: 2rem; height: 2rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    <div class="bg-danger bg-opacity-10 text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4"
+                        style="width: 4rem; height: 4rem;">
+                        <svg style="width: 2rem; height: 2rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                            </path>
+                        </svg>
                     </div>
                     <h5 class="fw-bold text-dark mb-2" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
                     <p class="text-secondary mb-4 small">Apakah Anda yakin untuk menghapus gambar ini?</p>
-                    
+
                     <div class="d-flex gap-2 mt-2">
                         <button type="button" class="btn btn-secondary w-100 fw-bold py-2" data-bs-dismiss="modal">
                             Batalkan
@@ -142,4 +125,5 @@
     </div>
 
 </body>
+
 </html>
