@@ -124,6 +124,33 @@
         </div>
     </div>
 
-</body>
+    <form id="deleteProductForm" method="POST" class="d-none">
+        @csrf
+        @method('DELETE')
+    </form>
 
+    <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 1rem;">
+                <div class="modal-body p-4 text-center">
+                    <div class="bg-danger bg-opacity-10 text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 4rem; height: 4rem;">
+                        <svg style="width: 2rem; height: 2rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">Hapus Produk?</h5>
+                    <p class="text-secondary mb-4 small">Seluruh data dan gambar produk ini akan dihapus secara permanen dari pangkalan data.</p>
+                    
+                    <div class="d-flex gap-2 mt-2">
+                        <button type="button" class="btn btn-secondary w-100 fw-bold py-2" data-bs-dismiss="modal">
+                            Batal
+                        </button>
+                        <button type="button" class="btn btn-danger w-100 fw-bold py-2" id="confirmDeleteProductBtn">
+                            Ya, Hapus
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>

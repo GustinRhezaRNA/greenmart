@@ -27,4 +27,10 @@ class ProductController extends Controller
         return back()->with('success', 'Product saved');
     }
 
+    public function destroy(Product $product)
+    {
+        $this->productService->deleteProduct($product);
+        return back()->with('success', 'Produk berhasil dihapus');
+    }
+
 }

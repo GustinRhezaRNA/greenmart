@@ -207,7 +207,8 @@ $(document).ready(function () {
         imageToDeleteInput = container.find('input[type="file"]');
         imagePreviewToHide = container;
 
-        $('#deleteModal').modal('show');
+        const deleteImgModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteImgModal.show();
     });
 
     $('#confirmDeleteBtn').on('click', function () {
@@ -222,9 +223,29 @@ $(document).ready(function () {
             label.removeClass('d-none');
         }
 
-        $('#deleteModal').modal('hide');
+        const deleteImgModal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
+        if (deleteImgModal) {
+            deleteImgModal.hide();
+        }
+
         imageToDeleteInput = null;
         imagePreviewToHide = null;
+    });
+
+    let productToDeleteId = null;
+
+    $('#productTable').on('click', '.delete-db-product-btn', function () {
+        productToDeleteId = $(this).data('product-id');
+        const deleteProductModal = new bootstrap.Modal(document.getElementById('deleteProductModal'));
+        deleteProductModal.show();
+    });
+
+    $('#confirmDeleteProductBtn').on('click', function () {
+        if (productToDeleteId) {
+            const form = $('#deleteProductForm');
+            form.attr('action', '/products/' + productToDeleteId);
+            form.submit();
+        }
     });
 
     // Populate initial products numbering

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Product;
 use App\Models\ProductDescription;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductService
 {
@@ -32,5 +33,17 @@ class ProductService
                 'image' => $imagePath
             ]);
         }
+    }
+
+    public function deleteProduct(Product $product)
+    {
+        return DB::transaction(function () use ($product) {
+            foreach ($product->descriptions as $desc) {
+                if ($desc->image) {
+                    Storage::disk('public')->delete($desc->image);
+                }
+            }
+            return $product->delete();
+        });
     }
 }
