@@ -26,29 +26,33 @@ document.addEventListener('DOMContentLoaded', () => {
             row.classList.add("desc-row");
 
             row.innerHTML = `
-                <td class="border-r border-b p-4 text-center align-top font-bold text-gray-700 text-lg product-number" rowspan="1"></td>
-                <td class="border-r border-b p-4 align-top" rowspan="1">
+                <td class="border-r border-b p-4 text-center align-middle font-bold text-gray-700 text-lg product-number" rowspan="1"></td>
+                <td class="border-r border-b p-4 align-middle" rowspan="1">
                     <input class="w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 shadow-sm p-2.5 bg-gray-50 form-input transition-all" name="products[${currIdx}][name]" placeholder="Ketik nama produk" required>
                 </td>
                 <td class="border-r border-b p-4">
                     <input class="w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 shadow-sm p-2.5 bg-gray-50 form-input transition-all" name="products[${currIdx}][descriptions][0][text]" placeholder="Ketik deskripsi produk" required>
                 </td>
                 <td class="border-r border-b p-4 text-center">
-                    <label class="cursor-pointer flex flex-col items-center justify-center p-4 border-2 border-dashed border-gray-300 rounded-lg hover:bg-green-50 hover:border-green-400 transition-all image-upload-label group">
-                        <svg class="w-7 h-7 text-gray-400 mb-2 group-hover:text-green-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                        <span class="text-xs font-semibold text-gray-500 group-hover:text-green-600 transition-colors">Upload Gambar</span>
-                        <input type="file" class="hidden image-input" accept="image/png,image/jpeg,image/jpg" name="products[${currIdx}][descriptions][0][image]" onchange="previewImage(this)">
-                    </label>
-                    <div class="image-preview hidden relative inline-block mx-auto">
-                        <img class="w-24 h-24 object-cover rounded-md border border-gray-200 shadow-sm bg-white p-1">
-                        <button type="button" class="absolute -bottom-2 -right-2 bg-white text-gray-500 hover:text-red-500 p-2 rounded-full shadow-md border hover:bg-red-50 hover:border-red-200 transition-all" onclick="triggerDeleteImage(this)" title="Hapus Gambar">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                        </button>
+                    <div class="relative inline-block">
+                        <!-- Default Upload Button UI (Only this is visible initially) -->
+                        <label class="cursor-pointer flex items-center justify-center bg-gray-100 hover:bg-gray-200 w-full h-full p-2 transition-all image-upload-label group rounded-md">
+                            <svg class="w-6 h-6 text-gray-700 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                            <input type="file" class="hidden image-input" accept="image/png,image/jpeg,image/jpg" name="products[${currIdx}][descriptions][0][image]" onchange="previewImage(this)">
+                        </label>
+                        
+                        <!-- Image Preview UI (Hidden initially) -->
+                        <div class="image-preview hidden relative mx-auto">
+                            <img class="w-20 h-20 object-cover rounded-md border border-gray-200 shadow-sm bg-white p-1">
+                            <button type="button" class="absolute -bottom-2 -right-2 bg-white text-gray-800 hover:text-red-500 p-1.5 rounded-full shadow-md border hover:bg-red-50 hover:border-red-200 transition-all" onclick="triggerDeleteImage(this)" title="Hapus Gambar">
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                            </button>
+                        </div>
                     </div>
                 </td>
                 <td class="border-r border-b p-4 text-center">
                     <div class="flex items-center justify-center gap-2">
-                        <button type="button" class="text-gray-400 hover:text-red-600 hover:bg-red-50 p-2 rounded-lg transition-all delete-desc-btn" onclick="removeDescription(this, ${currIdx})" title="Hapus Deskripsi">
+                        <button type="button" class="text-gray-400 hover:text-red-600 hover:bg-red-50 p-2 rounded-lg transition-all delete-desc-btn hidden" onclick="removeDescription(this, ${currIdx})" title="Hapus Deskripsi">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
                         <button type="button" class="text-green-600 hover:text-white bg-green-100 hover:bg-green-600 p-2 rounded-lg transition-all font-bold shadow-sm add-desc-btn" onclick="addDescription(this, ${currIdx})" title="Tambah Deskripsi">
@@ -127,16 +131,20 @@ function addDescription(btn, prodIdx) {
             <input class="w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 shadow-sm p-2.5 bg-gray-50 form-input transition-all" name="products[${prodIdx}][descriptions][${descCount}][text]" placeholder="Ketik deskripsi produk" required>
         </td>
         <td class="border-r border-b p-4 text-center">
-            <label class="cursor-pointer flex flex-col items-center justify-center p-4 border-2 border-dashed border-gray-300 rounded-lg hover:bg-green-50 hover:border-green-400 transition-all image-upload-label group">
-                <svg class="w-7 h-7 text-gray-400 mb-2 group-hover:text-green-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                <span class="text-xs font-semibold text-gray-500 group-hover:text-green-600 transition-colors">Upload Gambar</span>
-                <input type="file" class="hidden image-input" accept="image/png,image/jpeg,image/jpg" name="products[${prodIdx}][descriptions][${descCount}][image]" onchange="previewImage(this)">
-            </label>
-            <div class="image-preview hidden relative inline-block mx-auto">
-                <img class="w-24 h-24 object-cover rounded-md border border-gray-200 shadow-sm bg-white p-1">
-                <button type="button" class="absolute -bottom-2 -right-2 bg-white text-gray-500 hover:text-red-500 p-2 rounded-full shadow-md border hover:bg-red-50 hover:border-red-200 transition-all" onclick="triggerDeleteImage(this)" title="Hapus Gambar">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                </button>
+            <div class="relative inline-block">
+                <!-- Default Upload Button UI (Only this is visible initially) -->
+                <label class="cursor-pointer flex items-center justify-center bg-gray-100 hover:bg-gray-200 w-full h-full p-2 transition-all image-upload-label group rounded-md">
+                    <svg class="w-6 h-6 text-gray-700 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    <input type="file" class="hidden image-input" accept="image/png,image/jpeg,image/jpg" name="products[${prodIdx}][descriptions][${descCount}][image]" onchange="previewImage(this)">
+                </label>
+                
+                <!-- Image Preview UI (Hidden initially) -->
+                <div class="image-preview hidden relative mx-auto">
+                    <img class="w-20 h-20 object-cover rounded-md border border-gray-200 shadow-sm bg-white p-1">
+                    <button type="button" class="absolute -bottom-2 -right-2 bg-white text-gray-800 hover:text-red-500 p-1.5 rounded-full shadow-md border hover:bg-red-50 hover:border-red-200 transition-all" onclick="triggerDeleteImage(this)" title="Hapus Gambar">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                    </button>
+                </div>
             </div>
         </td>
         <td class="border-r border-b p-4 text-center">
@@ -207,6 +215,8 @@ function updateDescButtons(tbody) {
     const rows = tbody.querySelectorAll(".desc-row");
     rows.forEach((row, i) => {
         const addBtn = row.querySelector(".add-desc-btn");
+        const delBtn = row.querySelector(".delete-desc-btn");
+
         if (rows.length >= MAX_DESC) {
             addBtn.classList.add("hidden");
         } else {
@@ -215,6 +225,12 @@ function updateDescButtons(tbody) {
             } else {
                 addBtn.classList.add("hidden");
             }
+        }
+
+        if (rows.length <= 1) {
+            delBtn.classList.add("hidden");
+        } else {
+            delBtn.classList.remove("hidden");
         }
     });
 }

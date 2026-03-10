@@ -58,8 +58,8 @@
                                     @foreach ($product->descriptions as $index => $desc)
                                         <tr class="desc-row">
                                             @if ($index === 0)
-                                                <td class="border-r border-b p-4 text-center product-number align-top font-bold text-gray-700 text-lg" rowspan="{{ $product->descriptions->count() }}"></td>
-                                                <td class="border-r border-b p-4 align-top text-gray-800 font-semibold" rowspan="{{ $product->descriptions->count() }}">{{ $product->name }}</td>
+                                                <td class="border-r border-b p-4 text-center product-number align-middle font-bold text-gray-700 text-lg" rowspan="{{ $product->descriptions->count() }}"></td>
+                                                <td class="border-r border-b p-4 align-middle text-gray-800 font-semibold" rowspan="{{ $product->descriptions->count() }}">{{ $product->name }}</td>
                                             @endif
                                             
                                             <td class="border-r border-b p-4 text-gray-600 font-medium">{{ $desc->description }}</td>
@@ -85,8 +85,8 @@
                                     @endforeach
                                 @else
                                     <tr class="desc-row">
-                                        <td class="border-r border-b p-4 text-center product-number align-top font-bold text-gray-700 text-lg" rowspan="1"></td>
-                                        <td class="border-r border-b p-4 align-top text-gray-800 font-semibold" rowspan="1">{{ $product->name }}</td>
+                                        <td class="border-r border-b p-4 text-center product-number align-middle font-bold text-gray-700 text-lg" rowspan="1"></td>
+                                        <td class="border-r border-b p-4 align-middle text-gray-800 font-semibold" rowspan="1">{{ $product->name }}</td>
                                         <td class="border-r border-b p-4 text-gray-400 font-medium italic">-</td>
                                         <td class="border-r border-b p-4 text-center text-gray-400 font-medium italic">-</td>
                                         <td class="border-r border-b p-4 text-center"><span class="text-gray-300">-</span></td>
