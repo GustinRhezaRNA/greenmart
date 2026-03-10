@@ -11,11 +11,21 @@ class ProductController extends Controller
 
     public function index()
     {
-        return view('product');
+        $products = Product::with('descriptions')->get();
+        return view('product', compact('products'));
     }
 
     public function store(Request $request)
     {
+        $request->validate([
+            'products' => 'required|array|max:5',
+            'products.*.name' => 'required|string',
+            'products.*.descriptions' => 'required|array|max:3',
+            'products.*.descriptions.*.text' => 'required|string',
+            'products.*.descriptions.*.image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+        ], [
+            'products.*.descriptions.*.image.mimes' => 'File harus berupa JPG, JPEG, atau PNG',
+        ]);
 
         foreach ($request->products as $productData) {
 
@@ -23,16 +33,16 @@ class ProductController extends Controller
                 'name' => $productData['name']
             ]);
 
-            if(isset($productData['descriptions'])){
+            if (isset($productData['descriptions'])) {
 
-                foreach ($productData['descriptions'] as $desc){
+                foreach ($productData['descriptions'] as $desc) {
 
                     $imagePath = null;
 
-                    if(isset($desc['image'])){
+                    if (isset($desc['image'])) {
 
                         $imagePath = $desc['image']
-                            ->store('products','public');
+                            ->store('products', 'public');
                     }
 
                     ProductDescription::create([
@@ -48,7 +58,7 @@ class ProductController extends Controller
             }
         }
 
-        return back()->with('success','Product saved');
+        return back()->with('success', 'Product saved');
 
     }
 
