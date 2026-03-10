@@ -12,7 +12,7 @@ $(document).ready(function () {
     $('#addProductBtn').on('click', function () {
         const groups = $('.product-group');
         if (groups.length >= MAX_PRODUCTS) {
-            alert("Anda Sudah Mencapai Maksimum Input");
+            alert("Maximum product input reached.");
             return;
         }
 
@@ -24,10 +24,10 @@ $(document).ready(function () {
                 <tr class="desc-row">
                     <td class="p-3 text-center align-middle fw-bold text-secondary fs-5 product-number" rowspan="1"></td>
                     <td class="p-3 align-middle" rowspan="1">
-                        <input class="form-control" name="products[${currIdx}][name]" placeholder="Ketik nama produk" required>
+                        <input class="form-control" name="products[${currIdx}][name]" placeholder="Enter product name" required>
                     </td>
                     <td class="p-3 align-middle">
-                        <input class="form-control" name="products[${currIdx}][descriptions][0][text]" placeholder="Ketik deskripsi produk" required>
+                        <input class="form-control" name="products[${currIdx}][descriptions][0][text]" placeholder="Enter product description" required>
                     </td>
                     <td class="p-3 text-center">
                         <div class="position-relative d-inline-block image-upload-wrapper w-100">
@@ -40,7 +40,7 @@ $(document).ready(function () {
                             <!-- Image Preview UI (Hidden initially) -->
                             <div class="image-preview d-none position-relative d-inline-block mx-auto">
                                 <img class="object-fit-cover rounded border bg-white p-1" style="width: 5rem; height: 5rem;">
-                                <button type="button" class="btn btn-light text-danger position-absolute p-1 rounded-circle shadow border delete-img-btn" style="bottom: -8px; right: -8px; line-height: 1;" title="Hapus Gambar">
+                                <button type="button" class="btn btn-light text-danger position-absolute p-1 rounded-circle shadow border delete-img-btn" style="bottom: -8px; right: -8px; line-height: 1;" title="Delete Image">
                                     <svg style="width: 1rem; height: 1rem;" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
                                 </button>
                             </div>
@@ -48,16 +48,16 @@ $(document).ready(function () {
                     </td>
                     <td class="p-3 text-center align-middle">
                         <div class="d-flex align-items-center justify-content-center gap-2">
-                            <button type="button" class="btn btn-outline-danger p-2 border-0 delete-desc-btn d-none" data-prodidx="${currIdx}" title="Hapus Deskripsi">
+                            <button type="button" class="btn btn-outline-danger p-2 border-0 delete-desc-btn d-none" data-prodidx="${currIdx}" title="Delete Description">
                                 <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             </button>
-                            <button type="button" class="btn btn-success p-2 add-desc-btn shadow-sm" data-prodidx="${currIdx}" title="Tambah Deskripsi">
+                            <button type="button" class="btn btn-success p-2 add-desc-btn shadow-sm" data-prodidx="${currIdx}" title="Add Description">
                                 <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             </button>
                         </div>
                     </td>
                     <td class="p-3 align-middle text-center border-0" rowspan="1">
-                        <button type="button" class="btn btn-outline-danger rounded-circle p-2 shadow-sm border remove-product-btn" title="Hapus Produk">
+                        <button type="button" class="btn btn-outline-danger rounded-circle p-2 shadow-sm border remove-product-btn" title="Remove Product">
                             <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
                     </td>
@@ -72,7 +72,7 @@ $(document).ready(function () {
         checkProductLimit();
 
         if ($('.product-group').length === MAX_PRODUCTS) {
-            setTimeout(() => alert("Anda Sudah Mencapai Maksimum Input"), 100);
+            setTimeout(() => alert("Maximum product input reached."), 100);
         }
     });
 
@@ -90,7 +90,7 @@ $(document).ready(function () {
         const descRows = tbody.find('.desc-row');
 
         if (descRows.length >= MAX_DESC) {
-            alert("Anda Sudah Mencapai Maksimum Input");
+            alert("Maximum description input reached.");
             return;
         }
 
@@ -99,7 +99,7 @@ $(document).ready(function () {
         const newRowHtml = `
             <tr class="desc-row">
                 <td class="p-3 align-middle">
-                    <input class="form-control" name="products[${prodIdx}][descriptions][${descCount}][text]" placeholder="Ketik deskripsi produk" required>
+                    <input class="form-control" name="products[${prodIdx}][descriptions][${descCount}][text]" placeholder="Enter product description" required>
                 </td>
                 <td class="p-3 text-center">
                     <div class="position-relative d-inline-block image-upload-wrapper w-100">
@@ -112,7 +112,7 @@ $(document).ready(function () {
                         <!-- Image Preview UI -->
                         <div class="image-preview d-none position-relative d-inline-block mx-auto">
                             <img class="object-fit-cover rounded border bg-white p-1" style="width: 5rem; height: 5rem;">
-                            <button type="button" class="btn btn-light text-danger position-absolute p-1 rounded-circle shadow border delete-img-btn" style="bottom: -8px; right: -8px; line-height: 1;" title="Hapus Gambar">
+                            <button type="button" class="btn btn-light text-danger position-absolute p-1 rounded-circle shadow border delete-img-btn" style="bottom: -8px; right: -8px; line-height: 1;" title="Delete Image">
                                 <svg style="width: 1rem; height: 1rem;" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
                             </button>
                         </div>
@@ -120,10 +120,10 @@ $(document).ready(function () {
                 </td>
                 <td class="p-3 text-center align-middle">
                     <div class="d-flex align-items-center justify-content-center gap-2">
-                        <button type="button" class="btn btn-outline-danger p-2 border-0 delete-desc-btn" data-prodidx="${prodIdx}" title="Hapus Deskripsi">
+                        <button type="button" class="btn btn-outline-danger p-2 border-0 delete-desc-btn" data-prodidx="${prodIdx}" title="Delete Description">
                             <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
-                        <button type="button" class="btn btn-success p-2 add-desc-btn shadow-sm" data-prodidx="${prodIdx}" title="Tambah Deskripsi">
+                        <button type="button" class="btn btn-success p-2 add-desc-btn shadow-sm" data-prodidx="${prodIdx}" title="Add Description">
                             <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         </button>
                     </div>
@@ -140,7 +140,7 @@ $(document).ready(function () {
         updateDescButtons(tbody);
 
         if (newLength === MAX_DESC) {
-            setTimeout(() => alert("Anda Sudah Mencapai Maksimum Input"), 100);
+            setTimeout(() => alert("Maximum description input reached."), 100);
         }
     });
 
@@ -150,7 +150,7 @@ $(document).ready(function () {
         const descRows = tbody.find('.desc-row');
 
         if (descRows.length <= 1) {
-            alert("Minimal harus ada 1 deskripsi.");
+            alert("A minimum of 1 description is required.");
             return;
         }
 
@@ -186,7 +186,7 @@ $(document).ready(function () {
 
         if (file) {
             if (!['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)) {
-                alert('File harus berupa JPG, JPEG, atau PNG');
+                alert('File must be JPG, JPEG, or PNG');
                 $(input).val('');
                 return;
             }

@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $this->productService->deleteProduct($product);
-        return back()->with('success', 'Produk berhasil dihapus');
+        return back()->with('success', 'Product successfully deleted.');
     }
 
 }

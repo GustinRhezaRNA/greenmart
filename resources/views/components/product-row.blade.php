@@ -26,7 +26,7 @@
             @if ($index === 0)
                 <td class="p-3 align-middle text-center border-0" rowspan="{{ $product->descriptions->count() }}">
                     <button type="button" class="btn btn-outline-danger rounded-circle p-2 shadow-sm border delete-db-product-btn"
-                        data-product-id="{{ $product->id }}" title="Hapus Produk Secara Permanen dari Database">
+                        data-product-id="{{ $product->id }}" title="Permanently Delete Product from Database">
                         <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
@@ -46,7 +46,7 @@
         <td class="p-3 text-center align-middle"><span class="text-secondary opacity-25">-</span></td>
         <td class="p-3 align-middle text-center border-0" rowspan="1">
             <button type="button" class="btn btn-outline-danger rounded-circle p-2 shadow-sm border delete-db-product-btn"
-                data-product-id="{{ $product->id }}" title="Hapus Produk Secara Permanen dari Database">
+                data-product-id="{{ $product->id }}" title="Permanently Delete Product from Database">
                 <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
